@@ -5,6 +5,9 @@ date: "November 26, 2017"
 output: html_document
 ---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
 
 ## R Markdown
 
@@ -14,6 +17,10 @@ When you click the **Knit** button a document will be generated that includes bo
 
 
 
+## Including Echo
+
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
 
 ##About
 
@@ -80,9 +87,11 @@ max_interval <- steps_by_interval[which.max(steps_by_interval$steps),1]
 
 The 5-minute interval, on average across all the days in the data set, containing the maximum number of steps is `r max_interval`.
 
-## Impute missing values. Compare imputed to non-imputed data.
+## Imput missing values. Compare imputed data to non-imputed data.
+
 Missing data needed to be imputed. Only a simple imputation approach was required for this assignment. 
 Missing values were imputed by inserting the average for each interval. Thus, if interval 10 was missing on 10-02-2012, the average for that interval for all days (0.1320755), replaced the NA. 
+
 ```{r}
 incomplete <- sum(!complete.cases(data))
 imputed_data <- transform(data, steps = ifelse(is.na(data$steps), steps_by_interval$steps[match(data$interval, steps_by_interval$interval)], data$steps))
@@ -139,3 +148,5 @@ library(lattice)
 
 xyplot(steps_by_interval_i$steps ~ steps_by_interval_i$interval|steps_by_interval_i$dow, main="Average Steps per Day by Interval",xlab="Interval", ylab="Steps",layout=c(1,2), type="l")
 ```
+
+
